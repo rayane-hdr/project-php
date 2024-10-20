@@ -1,0 +1,36 @@
+<?php
+namespace App\Controller;
+
+use App\Model\TaskModel;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
+class TaskController
+{
+    private $twig;
+    private $taskModel;
+
+    public function __construct()
+    {
+        $loader = new FilesystemLoader(__DIR__ . '/../View');
+        $this->twig = new Environment($loader);
+        $this->taskModel = new TaskModel();
+    }
+
+    public function listTasks()
+    {
+        $tasks = $this->taskModel->getTasks();
+        echo $this->twig->render('task_list.html.twig', ['tasks' => $tasks]);
+    }
+
+    public function addTask()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'];
+            $this->taskModel->addTask($title);
+            header('Location: /tasks');
+        } else {
+            echo $this->twig->render('add_task.html.twig');
+        }
+    }
+}

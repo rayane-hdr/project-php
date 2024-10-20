@@ -1,0 +1,30 @@
+<?php
+namespace App\Model;
+
+class TaskModel
+{
+    private $tasks = [];
+
+    public function __construct()
+    {
+        // Pour l'instant, utilisons des données statiques
+        $this->tasks = [
+            ['id' => 1, 'title' => 'Acheter du lait', 'completed' => false],
+            ['id' => 2, 'title' => 'Terminer le projet', 'completed' => true],
+        ];
+    }
+
+    public function getTasks()
+    {
+        return $this->tasks;
+    }
+
+    public function addTask($title)
+    {
+        $this->tasks[] = [
+            'id' => count($this->tasks) + 1,
+            'title' => $title,
+            'completed' => false,
+        ];
+    }
+}

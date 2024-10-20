@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des tâches</title>
+</head>
+<body>
+    <h1>Ma To-Do List</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.title }}
+                <form action="/delete/{{ task.id }}" method="post" style="display:inline;">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/add">Ajouter une nouvelle tâche</a>
+</body>
+</html>
